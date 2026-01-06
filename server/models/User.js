@@ -8,6 +8,14 @@ const userSchema = new mongoose.Schema({
     enum: ["author", "expert", "admin"],
     default: "author"
   },
-  expertRequested: { type: Boolean, default: false } // request flag
-});
+  notifications: [
+  {
+    message: String,
+    isRead: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now },
+  },
+],
+}, { timestamps: true });
+
+
 export default mongoose.model("User", userSchema);
