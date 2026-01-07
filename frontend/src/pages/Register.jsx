@@ -7,15 +7,14 @@ export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, token } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(form)).then((res) => {
-      if (!res.error) navigate("/login"); // Redirect to login after registration
+      if (!res.error) navigate("/login"); // Redirect after registration
     });
   };
-  console.log("forem",form)
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -51,6 +50,15 @@ export default function Register() {
         </button>
 
         {error && <p className="text-red-500 mt-2">{error}</p>}
+
+        {/* Google Register Button */}
+        <button
+          type="button"
+          className="btn btn-red-500 w-full mt-3"
+          onClick={() => window.open("http://localhost:5000/api/auth/google", "_self")}
+        >
+          Register with Google
+        </button>
       </form>
     </div>
   );
